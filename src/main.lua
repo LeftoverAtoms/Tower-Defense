@@ -1,10 +1,9 @@
---Log Output to Sublime Console
+--Allow Sublime to display outputs from LOVE
 io.stdout:setvbuf('no')
 
 require('resources')
 
 function love.load()
-
 	--TODO: Make a tileset
 	frogs = {}
 	frogs[1] = love.graphics.newImage('imgs/blue_frog.png')
@@ -15,20 +14,17 @@ function love.load()
 	unit.parse_data()
 	unit.create('Dart Monkey')
 	unit.create('Super Monkey')
-	unit.findall()
+	unit.find_all()
 
 	map.create()
 end
 
 function love.draw()
-
-	--FLASHBANG OUT THE DOOR, not anymore... haha
+	--Protect eyes from a lethal flashbang
 	love.graphics.setColor(0.25, 0.25, 0.25, 1)
-
 	map.draw()
 end
 
 function love.resize(w, h)
-
 	map.create()
 end

@@ -20,12 +20,12 @@ function unit.parse_data()
 		end
 
 		--Reconstruct and record data
-		if ( offsets[1] ~= nil ) then
+		if (offsets[1] ~= nil) then
 
-			local key = string.sub( str, offsets[1] + 1, offsets[2] - 1 )
-			local value = string.sub( str, offsets[3] + 1, offsets[4] - 1 )
+			local key = str:sub(offsets[1] + 1, offsets[2] - 1)
+			local value = str:sub(offsets[3] + 1, offsets[4] - 1)
 
-			if ( key == 'name' ) then
+			if (key == 'name') then
 				header = value
 				data[header] = {}
 			else
@@ -35,8 +35,7 @@ function unit.parse_data()
 	end
 end
 
-function unit.create( name )
-
+function unit.create(name)
 	if (data[name] == nil) then print('"' .. name .. '" does not exist') return end
 
 	local obj =
@@ -55,15 +54,9 @@ function unit.create( name )
 	return obj
 end
 
-function unit.findall()
-
-	print('Found ' .. #unit.towers .. ' Unit(s)')
-
-	for i = 1, #unit.towers do
-		if (unit.towers[i] ~= nil) then
-			print('-> ' .. unit.towers[i].name)
-		end
-	end
-
+function unit.find_all()
+	local count = #unit.towers
+	print('Found ' .. count .. ' Towers(s)')
+	for i = 1, count do print('-> ' .. unit.towers[i].name) end
 	print()
 end
