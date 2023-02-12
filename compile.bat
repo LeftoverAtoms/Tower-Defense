@@ -1,0 +1,1 @@
+copy /b E:\Program Files\LOVE\love.exe + C:\dev\Love\Untitled\src.exe Untitled.exe

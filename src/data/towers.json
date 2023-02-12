@@ -1,0 +1,27 @@
+[
+  {
+    "name":        "Dart Monkey",
+    "description": "Shoots a single dart. It can upgrade to piercing darts and long range darts.",
+    "cost":        "250"
+  },
+  {
+    "name":        "Tack Tower",
+    "description": "Shoots volley of tacks in 8 directions. Can upgrade its shoot speed and its range.",
+    "cost":        "400"
+  },
+  {
+    "name":        "Ice Tower",
+    "description": "Freezes nearby bloons. Frozen bloons are immune to darts and tacks, but bombs will destroy them. Can upgrade to increased freeze time, and larger freeze radius.",
+    "cost":        "850"
+  },
+  {
+    "name":        "Bomb Tower",
+    "description": "Launches a bomb that explodes on impact. Can upgrade to bigger bombs and longer range.",
+    "cost":        "900"
+  },
+  {
+    "name":        "Super Monkey",
+    "description": "Super monkey shoots a continuous stream of darts and can mow down even the fastest and most stubborn bloons.",
+    "cost":        "4000"
+  }
+]
