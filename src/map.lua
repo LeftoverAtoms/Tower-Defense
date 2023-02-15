@@ -1,39 +1,36 @@
 --[[ NOTES:
 -> Bloons map is a 16-12 grid
--> Multiply half of width by tile_size to get offset from left side
 -> Shouldn't have a tile_size variable. I will manage this separately once I create a tileset
 --]]
 
 map =
 {
-	tiles = {},
-	tile_size = 256,
-	width = 4,
-	height = 3
+	tile = {},
+	width = 4, height = 3
 }
 
 function map.create()
-	--NOTE: Storing these values in a display-related class seems significantly better
-	local width, height = love.window.getMode()
-	local center =
-	{
-		x = width * 0.5,
-		y = height * 0.5
-	}
+	local tile_size = 128
+	--if (map.width > map.height) then tile_size = window.width / map.width
+	--else tile_size = window.height / map.height end
+
+	--print(window.width / map.width .. ',' .. window.height / map.height)
 
 	for x = 1, map.width do
-		map.tiles[x] = {}
+		map.tile[x] = {}
 
 		for y = 1, map.height do
-			map.tiles[x][y] =
+			map.tile[x][y] =
 			{
-				x = (map.width * 0.5 - x) * map.tile_size + center.x,
-				y = (map.height * 0.5 - y) * map.tile_size + center.y,
-				image = love.math.random(4)
+				image = love.math.random(4),
+				vertices =
+				{
+					{ tile_size * (x - 1),	tile_size * (y - 1),	0,	0},
+					{		tile_size * x,	tile_size * (y - 1),	1,	0},
+					{		tile_size * x,	tile_size * y,			1,	1},
+					{ tile_size * (x - 1),	tile_size * y,			0,	1}
+				}
 			}
-
-			--Debug
-			print('index[' .. x .. ',' .. y .. '] ' .. 'pixel[' .. map.tiles[x][y].x .. ',' .. map.tiles[x][y].y .. ']')
 		end
 	end
 end
@@ -41,8 +38,19 @@ end
 function map.draw()
 	for x = 1, map.width do
 		for y = 1, map.height do
-			local tile = map.tiles[x][y]
-			love.graphics.draw(frogs[tile.image], tile.x, tile.y, 0, 1, 1)
+			local tile = map.tile[x][y]
+
+			local mesh = love.graphics.newMesh( tile.vertices, 'fan' )
+			mesh:setTexture(frogs[tile.image])
+
+			love.graphics.draw(mesh, 2, 0)
+
+			--love.graphics.print('1', tile.vertices[1][1], tile.vertices[1][2])
+			--love.graphics.print('2', tile.vertices[2][1], tile.vertices[2][2])
+			--love.graphics.print('3', tile.vertices[3][1], tile.vertices[3][2])
+			--love.graphics.print('4', tile.vertices[4][1], tile.vertices[4][2])
+
+			love.graphics.print(x .. ',' .. y, (tile.vertices[1][1] * 0.5) + (tile.vertices[3][1] * 0.5), (tile.vertices[1][2] * 0.5) + (tile.vertices[3][2] * 0.5))
 		end
 	end
 end

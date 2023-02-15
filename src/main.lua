@@ -4,6 +4,8 @@ io.stdout:setvbuf('no')
 require('resources')
 
 function love.load()
+	window.load()
+
 	--TODO: Make a tileset
 	frogs = {}
 	frogs[1] = love.graphics.newImage('imgs/blue_frog.png')
@@ -20,11 +22,10 @@ function love.load()
 end
 
 function love.draw()
-	--Protect eyes from a lethal flashbang
-	love.graphics.setColor(0.25, 0.25, 0.25, 1)
 	map.draw()
 end
 
 function love.resize(w, h)
 	map.create()
+	window.resize(w,h)
 end
