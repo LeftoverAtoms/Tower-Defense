@@ -1,56 +1,75 @@
---[[ NOTES:
--> Bloons map is a 16-12 grid
--> Shouldn't have a tile_size variable. I will manage this separately once I create a tileset
---]]
-
 map =
 {
 	tile = {},
-	width = 4, height = 3
+	w = 6, h = 4 --16x12
 }
 
 function map.create()
 	local tile_size = 128
-	--if (map.width > map.height) then tile_size = window.width / map.width
-	--else tile_size = window.height / map.height end
+	--if map.w > map.h then tile_size = window.w / map.w
+	--else tile_size = window.h / map.h end
+	--print(window.w / map.w .. ',' .. window.h / map.h)
 
-	--print(window.width / map.width .. ',' .. window.height / map.height)
-
-	for x = 1, map.width do
+	for x = 1, map.w do
 		map.tile[x] = {}
+	end
 
-		for y = 1, map.height do
+	for x = 1, map.w do
+		for y = 1, map.h do
 			map.tile[x][y] =
 			{
-				image = love.math.random(4),
-				vertices =
-				{
-					{ tile_size * (x - 1),	tile_size * (y - 1),	0,	0},
-					{		tile_size * x,	tile_size * (y - 1),	1,	0},
-					{		tile_size * x,	tile_size * y,			1,	1},
-					{ tile_size * (x - 1),	tile_size * y,			0,	1}
-				}
+				position = { x = x, y = y},
+				mesh = nil,
+				tower = nil,
+				image = love.math.random(4)
 			}
+			local vertices =
+			{
+				--    [ X AXIS ]              [ Y AXIS ]       [ U ] [ V ]
+				{tile_size * (x - 1),    tile_size * (y - 1),    0,    0},
+				{tile_size *       x,    tile_size * (y - 1),    1,    0},
+				{tile_size *       x,    tile_size *       y,    1,    1},
+				{tile_size * (x - 1),    tile_size *       y,    0,    1}
+			}
+			map.tile[x][y].mesh = love.graphics.newMesh(vertices, 'fan')
+			map.tile[x][y].mesh:setTexture(frogs[map.tile[x][y].image])
 		end
 	end
 end
 
 function map.draw()
-	for x = 1, map.width do
-		for y = 1, map.height do
-			local tile = map.tile[x][y]
-
-			local mesh = love.graphics.newMesh( tile.vertices, 'fan' )
-			mesh:setTexture(frogs[tile.image])
-
-			love.graphics.draw(mesh, 2, 0)
-
-			--love.graphics.print('1', tile.vertices[1][1], tile.vertices[1][2])
-			--love.graphics.print('2', tile.vertices[2][1], tile.vertices[2][2])
-			--love.graphics.print('3', tile.vertices[3][1], tile.vertices[3][2])
-			--love.graphics.print('4', tile.vertices[4][1], tile.vertices[4][2])
-
-			love.graphics.print(x .. ',' .. y, (tile.vertices[1][1] * 0.5) + (tile.vertices[3][1] * 0.5), (tile.vertices[1][2] * 0.5) + (tile.vertices[3][2] * 0.5))
+	for x = 1, map.w do
+		for y = 1, map.h do
+			love.graphics.draw(map.tile[x][y].mesh, 2, 0)
 		end
+	end
+end
+
+function map.select()
+	local mx = input.mouse.position.x
+	local my = input.mouse.position.y
+	local selection = nil
+	for x = 1, map.w do
+		for y = 1, map.h do
+			local lx, ly = map.tile[x][y].mesh:getVertex(1) -- Top Left
+			local rx, ry = map.tile[x][y].mesh:getVertex(3) -- Bottom Right
+
+			-- Collision Check
+			if mx >= lx and mx < rx and my >= ly and my < ry then
+				map.tile[x][y].mesh:setTexture(frogs['selected'])
+				selection = map.tile[x][y]
+			else
+				--Ideally, something is overlayed over the image.
+				map.tile[x][y].mesh:setTexture(frogs[map.tile[x][y].image])
+			end
+		end
+	end
+	return selection
+end
+
+function map.place_tower()
+	local tile = map.select()
+	if tile ~= nil and tile.tower == nil then
+		print(tile.position.x .. ',' .. tile.position.y)
 	end
 end

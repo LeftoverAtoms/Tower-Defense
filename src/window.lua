@@ -1,20 +1,21 @@
 window =
 {
-	size = { width, height },
-	center = { x, y }
+	aspect_ratio = {16,9},
+	center = {w,h},
+	size = {w,h},
 }
 
-function window.load()
-	window.width, window.height = love.window.getMode()
-
-	window.center.x = window.width * 0.5
-	window.center.y = window.height * 0.5
+function window.init()
+	local w, h = love.window.getMode()
+	window.center.w = w * 0.5
+	window.center.h = h * 0.5
+	window.size.w = w
+	window.size.h = h
 end
 
 function window.resize(w,h)
-	window.width = w
-	window.height = h
-
-	window.center.x = window.width * 0.5
-	window.center.y = window.height * 0.5
+	window.center.w = w * 0.5
+	window.center.h = h * 0.5
+	window.size.w = w
+	window.size.h = h
 end
