@@ -22,10 +22,6 @@ function love.update(dt)
 
 	if input.mouse.clicked == true then
 		map.select()
+		--map.place_tower()
 	end
-end
-
-function love.resize(w,h)
-	map.create()
-	window.resize(w,h)
 end

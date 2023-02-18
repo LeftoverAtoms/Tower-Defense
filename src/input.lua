@@ -23,14 +23,18 @@ end
 --[LOVE FUNCTIONS BELOW]
 
 function love.mousepressed(x,y,button,istouch,presses)
-	mouse_was_clicked = false
-	input.mouse.clicked = true
-	input.mouse.pressed = true
+	if button == 1 then
+		mouse_was_clicked = false
+		input.mouse.clicked = true
+		input.mouse.pressed = true
+	end
 end
 
 function love.mousereleased(x,y,button,istouch,presses)
-	input.mouse.clicked = false
-	input.mouse.pressed = false
+	if button == 1 then
+		input.mouse.clicked = false
+		input.mouse.pressed = false
+	end
 end
 
 function love.mousemoved(x,y,dx,dy,istouch)
