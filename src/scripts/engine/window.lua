@@ -1,21 +1,21 @@
 window =
 {
 	aspect_ratio = {16,9},
-	center = {w,h},
+	center = {x,y},
 	w = nil, h = nil
 }
 
-function window.init()
+function window.load()
 	local w, h = love.window.getMode()
-	window.center.w = w * 0.5
-	window.center.h = h * 0.5
+	window.center.x = w * 0.5
+	window.center.y = h * 0.5
 	window.w = w
 	window.h = h
 end
 
 function window.resize(w,h)
-	window.center.w = w * 0.5
-	window.center.h = h * 0.5
+	window.center.x = w * 0.5
+	window.center.y = h * 0.5
 	window.w = w
 	window.h = h
 end

@@ -5,10 +5,8 @@ unit =
 
 local data = {}
 function unit.parse_data()
-
-	local header = ''
-
-	for str in love.filesystem.lines( 'data/towers.json' ) do
+	local header = ""
+	for str in love.filesystem.lines( "data/towers.json" ) do
 
 		--Iterate through line to locate markers
 		local offsets = {}
@@ -25,7 +23,7 @@ function unit.parse_data()
 			local key = str:sub(offsets[1] + 1, offsets[2] - 1)
 			local value = str:sub(offsets[3] + 1, offsets[4] - 1)
 
-			if key == 'name' then
+			if key == "name" then
 				header = value
 				data[header] = {}
 			else
@@ -37,12 +35,11 @@ end
 
 function unit.create(name)
 	if data[name] == nil then print('"' .. name .. '" does not exist') return end
-
 	local obj =
 	{
 		name        = name,
-		description = data[name]['description'],
-		cost        = data[name]['cost'],
+		description = data[name]["description"],
+		cost        = data[name]["cost"],
 		--TODO: weapon = separate class that handles projectiles or aoe attacks and upgrades
 
 		init = function(self)
@@ -56,7 +53,7 @@ end
 
 function unit.find_all()
 	local count = #unit.towers
-	print('Found ' .. count .. ' Towers(s)')
-	for i = 1, count do print('-> ' .. unit.towers[i].name) end
+	print("Found " .. count .. " Towers(s)")
+	for i = 1, count do print("-> " .. unit.towers[i].name) end
 	print()
 end

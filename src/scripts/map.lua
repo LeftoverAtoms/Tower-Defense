@@ -27,7 +27,7 @@ function map.create()
 				{tile_size *       x,    tile_size *       y,    1,    1},
 				{tile_size * (x - 1),    tile_size *       y,    0,    1}
 			}
-			tile.mesh = love.graphics.newMesh(vertices, 'fan')
+			tile.mesh = love.graphics.newMesh(vertices, "fan")
 			tile.mesh:setTexture(frogs[tile.image])
 			table.insert(map.tile, tile)
 		end
@@ -51,7 +51,7 @@ function map.select()
 		local rx, ry = map.tile[i].mesh:getVertex(3)
 
 		if mx >= lx and mx < rx and my >= ly and my < ry then
-			map.tile[i].mesh:setTexture(frogs['selected'])
+			map.tile[i].mesh:setTexture(frogs["selected"])
 			selection = map.tile[i]
 		else
 			map.tile[i].mesh:setTexture(frogs[map.tile[i].image])
@@ -64,6 +64,6 @@ end
 function map.place_tower()
 	local tile = map.select()
 	if tile ~= nil and tile.tower == nil then
-		print(tile.position.x .. ',' .. tile.position.y)
+		print(tile.position.x .. "," .. tile.position.y)
 	end
 end
