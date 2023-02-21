@@ -8,11 +8,20 @@ require( "scripts/map" )
 require( "scripts/menu" )
 require( "scripts/unit" )
 
-frogs =
+font_default = love.graphics.newFont("resources/fonts/Roboto-Regular.ttf", 32)
+
+image =
 {
-	love.graphics.newImage("imgs/blue_frog.png"),
-	love.graphics.newImage("imgs/green_frog.png"),
-	love.graphics.newImage("imgs/purple_frog.png"),
-	love.graphics.newImage("imgs/red_frog.png"),
-	selected = love.graphics.newImage("imgs/grid.png")
+	color =
+	{
+		gray = love.graphics.newImage("resources/images/colors/gray.jpg")
+	},
+	frog =
+	{
+		red = love.graphics.newImage("resources/images/dev/red_frog.png"),
+		green = love.graphics.newImage("resources/images/dev/green_frog.png"),
+		blue = love.graphics.newImage("resources/images/dev/blue_frog.png"),
+		purple = love.graphics.newImage("resources/images/dev/purple_frog.png")
+	},
+	selected = love.graphics.newImage("resources/images/dev/grid.png")
 }

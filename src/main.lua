@@ -9,28 +9,18 @@ game_state = "main_menu"
 function love.load()
 	window.load()
 
-	button:create({x = window.center.x, y = window.center.y - 125}, 250, 50)
-
-	button:create(window.center, 250, 50)
-
-	button:create({x = window.center.x, y = window.center.y + 125}, 250, 50)
-
-	--map.create()
+	button:create("level.select", {x = 0, y = -125, w = 640, h = 100}, image.color.gray, "Select Level")
+	button:create("game.options", {x = 0, y =    0, w = 640, h = 100}, image.color.gray, "Options")
+	button:create("game.quit", 	  {x = 0, y =  125, w = 640, h = 100}, image.color.gray, "Quit")
 end
 
 function love.draw()
-	--map.draw()
-	for i = 1, button.entity.count do
-		love.graphics.line(button.entity[i].bounds[1].x, button.entity[i].bounds[1].y, button.entity[i].bounds[2].x, button.entity[i].bounds[1].y)
-		love.graphics.line(button.entity[i].bounds[2].x, button.entity[i].bounds[1].y, button.entity[i].bounds[2].x, button.entity[i].bounds[2].y)
-		love.graphics.line(button.entity[i].bounds[1].x, button.entity[i].bounds[2].y, button.entity[i].bounds[2].x, button.entity[i].bounds[2].y)
-		love.graphics.line(button.entity[i].bounds[1].x, button.entity[i].bounds[1].y, button.entity[i].bounds[1].x, button.entity[i].bounds[2].y)
-	end
+	button:draw()
 end
 
 function love.update(dt)
 	input:update(dt)
 	button:update(dt)
 	
-	input:lateupdate(dt)
+	input:lateUpdate(dt)
 end

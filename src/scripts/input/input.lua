@@ -1,16 +1,14 @@
 input =
-{
-	mouse =
-	{
-		position = { x, y },
-		pressed = false, down = false
-	}
+{ 
+	mouse = { position = { x, y }, pressed = false, down = false },
+	keyboard = {},
+	gamepad = {}
 }
 
 function input:update(dt)
 end
 
-function input:lateupdate(dt)
+function input:lateUpdate(dt)
 	input.mouse.pressed = false
 end
 

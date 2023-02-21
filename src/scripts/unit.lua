@@ -1,19 +1,16 @@
-unit =
-{
-	towers = {}
-}
+unit = { towers = {} }
 
 local data = {}
-function unit.parse_data()
+function unit.parseData()
 	local header = ""
-	for str in love.filesystem.lines( "data/towers.json" ) do
+	for str in love.filesystem.lines( "resources/data/towers.json" ) do
 
 		--Iterate through line to locate markers
 		local offsets = {}
 		for i = 1, #str do
-			local char = str:sub( i, i )
+			local char = str:sub(i, i)
 			if char == '"' then
-				table.insert( offsets, i )
+				table.insert(offsets, i)
 			end
 		end
 
@@ -51,7 +48,7 @@ function unit.create(name)
 	return obj
 end
 
-function unit.find_all()
+function unit.findAll()
 	local count = #unit.towers
 	print("Found " .. count .. " Towers(s)")
 	for i = 1, count do print("-> " .. unit.towers[i].name) end

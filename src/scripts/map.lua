@@ -1,7 +1,7 @@
-map =
+map = 
 {
-	tile = {},
-	w = 16, h = 12
+	w = 16, h = 12,
+	tile = {}
 }
 
 local map_size = map.w * map.h
@@ -21,14 +21,14 @@ function map.create()
 			}
 			local vertices =
 			{
-				--    [ X AXIS ]              [ Y AXIS ]       [ U ] [ V ]
-				{tile_size * (x - 1),    tile_size * (y - 1),    0,    0},
-				{tile_size *       x,    tile_size * (y - 1),    1,    0},
-				{tile_size *       x,    tile_size *       y,    1,    1},
-				{tile_size * (x - 1),    tile_size *       y,    0,    1}
+				--   [ X AXIS ]              [ Y AXIS ]         [ UV ]     [ RGBA ]
+				{tile_size * (x - 1),    tile_size * (y - 1),    0, 0,    1, 1, 1, 1},
+				{tile_size * (x - 1),    tile_size *       y,    0, 1,    1, 1, 1, 1},
+				{tile_size *       x,    tile_size *       y,    1, 1,    1, 1, 1, 1},
+				{tile_size *       x,    tile_size * (y - 1),    1, 0,    1, 1, 1, 1}
 			}
 			tile.mesh = love.graphics.newMesh(vertices, "fan")
-			tile.mesh:setTexture(frogs[tile.image])
+			tile.mesh:setTexture(image.frog.blue)
 			table.insert(map.tile, tile)
 		end
 	end
@@ -51,10 +51,10 @@ function map.select()
 		local rx, ry = map.tile[i].mesh:getVertex(3)
 
 		if mx >= lx and mx < rx and my >= ly and my < ry then
-			map.tile[i].mesh:setTexture(frogs["selected"])
+			map.tile[i].mesh:setTexture(image.selected)
 			selection = map.tile[i]
 		else
-			map.tile[i].mesh:setTexture(frogs[map.tile[i].image])
+			map.tile[i].mesh:setTexture(image.frog.blue)
 		end
 	end
 
